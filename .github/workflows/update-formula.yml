@@ -1,0 +1,96 @@
+name: Update Dogshell Formula
+
+on:
+  schedule:
+    - cron: "0 8 * * 1"  # Weekly on Monday at 8am UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Check for new datadog version
+        id: check
+        run: |
+          CURRENT=$(grep -oP '(?<=datadog-)\d+\.\d+\.\d+' Formula/dogshell.rb | head -1)
+          LATEST=$(pip index versions datadog 2>/dev/null | grep -oP '\d+\.\d+\.\d+' | head -1)
+          echo "current=$CURRENT" >> "$GITHUB_OUTPUT"
+          echo "latest=$LATEST" >> "$GITHUB_OUTPUT"
+          if [ "$CURRENT" != "$LATEST" ]; then
+            echo "needs_update=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "needs_update=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Update formula
+        if: steps.check.outputs.needs_update == 'true'
+        run: |
+          pip install datadog homebrew-pypi-poet
+          LATEST=${{ steps.check.outputs.latest }}
+
+          # Get new sdist URL and sha256
+          SDIST_URL=$(python3 -c "
+          import json, urllib.request
+          data = json.loads(urllib.request.urlopen('https://pypi.org/pypi/datadog/${LATEST}/json').read())
+          for f in data['urls']:
+              if f['packagetype'] == 'sdist':
+                  print(f['url'])
+                  break
+          ")
+          SDIST_SHA=$(python3 -c "
+          import json, urllib.request
+          data = json.loads(urllib.request.urlopen('https://pypi.org/pypi/datadog/${LATEST}/json').read())
+          for f in data['urls']:
+              if f['packagetype'] == 'sdist':
+                  print(f['digests']['sha256'])
+                  break
+          ")
+
+          # Generate resource stanzas
+          RESOURCES=$(python3 -m poet datadog)
+
+          # Build updated formula
+          cat > Formula/dogshell.rb << FORMULA
+          class Dogshell < Formula
+            include Language::Python::Virtualenv
+
+            desc "CLI tool for interacting with the Datadog API"
+            homepage "https://docs.datadoghq.com/developers/guide/dogshell/"
+            url "${SDIST_URL}"
+            sha256 "${SDIST_SHA}"
+            license "BSD-3-Clause"
+
+            depends_on "python@3"
+
+          ${RESOURCES}
+
+            def install
+              virtualenv_install_with_resources
+            end
+
+            test do
+              assert_match "usage:", shell_output("#{bin}/dogshell -h")
+            end
+          end
+          FORMULA
+
+          # Fix indentation (heredoc adds extra spaces)
+          sed -i 's/^          //' Formula/dogshell.rb
+
+      - name: Commit and push
+        if: steps.check.outputs.needs_update == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Formula/dogshell.rb
+          git commit -m "Update dogshell to ${{ steps.check.outputs.latest }}"
+          git push
