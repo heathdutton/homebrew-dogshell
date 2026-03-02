@@ -10,8 +10,8 @@ class Dogshell < Formula
   depends_on "python@3.13"
 
   resource "certifi" do
-    url "https://files.pythonhosted.org/packages/e0/2d/a891ca51311197f6ad14a7ef42e2399f36cf2f9bd44752b3dc4eab60fdc5/certifi-2026.1.4.tar.gz"
-    sha256 "ac726dd470482006e014ad384921ed6438c457018f4b3d204aea4281258b2120"
+    url "https://files.pythonhosted.org/packages/af/2d/7bf41579a8986e348fa033a31cdd0e4121114f6bce2457e8876010b092dd/certifi-2026.2.25.tar.gz"
+    sha256 "e887ab5cee78ea814d3472169153c2d12cd43b14bd03329a39a9c6e2e80bfba7"
   end
 
   resource "charset_normalizer" do
