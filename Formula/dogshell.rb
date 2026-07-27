@@ -3,15 +3,15 @@ class Dogshell < Formula
 
   desc "CLI tool for interacting with the Datadog API"
   homepage "https://docs.datadoghq.com/developers/guide/dogshell/"
-  url "https://files.pythonhosted.org/packages/e4/44/3a285d5964203e414d89c3f41f1aeb71f9b8f17a8fc19ad18e1df5e65b4e/datadog-0.52.2.tar.gz"
-  sha256 "a74b1704ce37f3d9a0c36b1a87127c45032171726a01960bd210a549f1400849"
+  url "https://files.pythonhosted.org/packages/77/4a/8c61a6bd82be61a7b2a1f9dd77104f52299aa81d377fe6a35f9477167361/datadog-0.53.0.tar.gz"
+  sha256 "9f69a18089c852e20edff7e55226a6f4ca9749e162cfa4ae88c949dd722ebef8"
   license "BSD-3-Clause"
 
   depends_on "python@3.13"
 
   resource "certifi" do
-    url "https://files.pythonhosted.org/packages/c9/c7/424b75da314c1045981bd9777432fad05a9e0c69daa4ed7e308bbaffe405/certifi-2026.6.17.tar.gz"
-    sha256 "024c88eeec92ca068db80f02b8b07c9cef7b9fe261d1d535abfd5abd6f6af432"
+    url "https://files.pythonhosted.org/packages/a3/c2/24167ea9858356b47a87a50d39908bfdb72ceeefe0041586e704e5376b3a/certifi-2026.7.22.tar.gz"
+    sha256 "741e2c3b351ddf169a738da9f2c048608ff7f2c5cc02f1ebc6b118bb090d5d55"
   end
 
   resource "charset_normalizer" do
