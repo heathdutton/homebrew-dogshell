@@ -3,8 +3,8 @@ class Dogshell < Formula
 
   desc "CLI tool for interacting with the Datadog API"
   homepage "https://docs.datadoghq.com/developers/guide/dogshell/"
-  url "https://files.pythonhosted.org/packages/e4/01/0f7b044e0cd3f3d851948a612fc09d48cd28b436fe09dd357fbde8f134aa/datadog-0.54.0.tar.gz"
-  sha256 "62afcedb3e56b8ea6fff04aa807ebcbf9a6bd843bd1c7feab0a9035ce21b8ca2"
+  url "https://files.pythonhosted.org/packages/aa/0d/dbe01629e2a40f934d513d0edfc9d65a5b8a9238f1b0dbf34fc6f4a1a423/datadog-0.55.0.tar.gz"
+  sha256 "d24085e33b9be2ec4d8fd413998ad0012a609ad022e1b8a59c171391d1753790"
   license "BSD-3-Clause"
 
   depends_on "python@3.13"
@@ -15,8 +15,8 @@ class Dogshell < Formula
   end
 
   resource "charset_normalizer" do
-    url "https://files.pythonhosted.org/packages/e5/3f/143b048436775b0f76ac3eec145c019e8173ccc2885c8f20319b996d5e83/charset_normalizer-3.5.1.tar.gz"
-    sha256 "6117b84ea48435e5356dc737f5121485c30920ba43375fa7b434fd753df0eac3"
+    url "https://files.pythonhosted.org/packages/33/1c/f41d4e74c28ab327ff3acd36053f7ea506c55872d7a90b0fa71aa3ab0c89/charset_normalizer-3.5.2.tar.gz"
+    sha256 "39de2a259fc954455c57274dc94c79d5842774e1247a016aff30bc0efed0f4ef"
   end
 
   resource "idna" do
