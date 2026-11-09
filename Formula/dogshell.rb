@@ -3,8 +3,8 @@ class Dogshell < Formula
 
   desc "CLI tool for interacting with the Datadog API"
   homepage "https://docs.datadoghq.com/developers/guide/dogshell/"
-  url "https://files.pythonhosted.org/packages/aa/0d/dbe01629e2a40f934d513d0edfc9d65a5b8a9238f1b0dbf34fc6f4a1a423/datadog-0.55.0.tar.gz"
-  sha256 "d24085e33b9be2ec4d8fd413998ad0012a609ad022e1b8a59c171391d1753790"
+  url "https://files.pythonhosted.org/packages/ef/e5/c689275f5017159088c50511de40080fcd7e606a797fc4f8565b945e0fe5/datadog-0.56.0.tar.gz"
+  sha256 "834367bebacbe3381b2290c96b31d359eb6bcc76322185be260e26dac51b0989"
   license "BSD-3-Clause"
 
   depends_on "python@3.13"
